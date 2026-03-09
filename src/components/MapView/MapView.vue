@@ -5,7 +5,7 @@
 
         <!-- 图层选择控件 -->
         <div class="layer-control" v-if="showLayerControl">
-            <div class="layer-control-title">图层选择</div>
+            <div class="layer-control-title">图层列表</div>
             <div class="layer-options">
                 <label v-for="layer in layerOptions" :key="layer.value" class="layer-option">
                     <input type="radio" name="layer-select" :value="layer.value" v-model="currentLayer"
@@ -110,10 +110,10 @@ const initialMapView = {
 
 // 图层选项配置
 const layerOptions = [
-    { label: '种植面积分布图', value: 'district' },
-    { label: '亩产分布图', value: 'yield' },
-    { label: '甘蔗种植遥感图', value: 'plant' },
-    { label: '甘蔗产量遥感图', value: 'production' }
+    { label: '甘蔗种植分布（遥感）', value: 'plant' },
+    { label: '甘蔗产量分布（遥感）', value: 'production' },
+    { label: '种植面积分布图层', value: 'district' },
+    { label: '亩产分布图层', value: 'yield' },
 ];
 
 // ==================== 图层配置（完整 WMS 配置） ====================
@@ -1195,6 +1195,15 @@ function initLeafletMap() {
 
     // 加载广西边界
     loadGuangxiBoundary(true, false);
+
+    setTimeout(() => {
+        showLayer('district');
+        // 同步更新单选按钮状态
+        const districtRadio = document.querySelector('input[name="layer-select"][value="district"]');
+        if (districtRadio) {
+            districtRadio.checked = true;
+        }
+    }, 300);
 
     // 创建降雨图例
     if (props.showRainLegend) {
