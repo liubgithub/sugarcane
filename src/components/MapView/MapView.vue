@@ -150,19 +150,21 @@ const layerConfig = [
 
 // ==================== 颜色分级配置 ====================
 const colorClassify = {
-    "3": "#ffffff",
-    "5": "#d4e6f1",
-    "7": "#a9cce3",
-    "10": "#7fb3d5",
-    "15": "#5499c7"
+    "3": "#feffe6",
+    "6": "#f5f5be",
+    "30": "#baed7a",
+    "60": "#38a800",
+    "100": "#005200"
 };
 
 const colorClassify_2 = {
-    "1": "#ffffff",
-    "2": "#d5f5e3",
-    "3": "#a9dfbf",
-    "4": "#7dcea0",
-    "5": "#52be80"
+    "1": "#feffe6",
+    "2": "#f5f5be",
+    "3": "#c0dc50",
+    "4": "#baed7a",
+    "5": "#008000",
+    "6": "#008000",
+    "7": "#005200",
 };
 
 // 降雨距平差颜色（kriging 插值）
@@ -410,7 +412,7 @@ function createDistrictLegend() {
 
     const LegendControl = L.Control.extend({
         onAdd: function (map) {
-            const div = L.DomUtil.create("div", "legend");
+            const div = L.DomUtil.create("div", "legend custom-legend-position");
             div.style.cssText = `
         background: rgba(255, 255, 255, 0.95);
         padding: 10px;
@@ -418,7 +420,7 @@ function createDistrictLegend() {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         font-family: 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
         font-size: 12px;
-        min-width: 100px;
+        min-width: 136px;
       `;
 
             const title = document.createElement("div");
@@ -1412,5 +1414,27 @@ defineExpose({
     line-height: 26px;
     text-align: center;
     text-decoration: none;
+}
+
+/* :deep(.map-legend),
+:deep(.legend) {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(203, 213, 225, 0.5);
+    color: #334155;
+    font-size: 12px;
+    min-width: 120px;
+} */
+
+:deep(.custom-legend-position) {
+    position: absolute !important;
+    bottom: 300px !important;
+    /* 距离底部 80px */
+    right: 524px !important;
+    /* 距离右侧 120px */
+
+
+    z-index: 1000 !important;
 }
 </style>
